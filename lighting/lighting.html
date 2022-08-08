@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'
+		integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>
+	<title>Lighting Demo</title>
+	<style>
+        /* too lazy for a dedicated css file */
+		.my-panel {
+			border: 2px solid white;
+			border-radius: 10px;
+			margin: 10px;
+			padding: 10px;
+		}
+
+		.my-canvas {
+			margin: 20px;
+		}
+	</style>
+
+	<!-- VERTEX SHADER -->
+	<script id='vertex-shader', type="x-shader/x-vertex">
+		attribute vec3 vPosition;
+		attribute vec3 vNormal;
+		
+		varying vec4 fColor;
+				
+		uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+		uniform mat4 modelViewMatrix;
+		uniform mat4 projectionMatrix;
+		uniform vec4 lightPosition;
+		uniform float shininess;
+		
+		void main() {
+			// convert 
+			vec4 pos4D = vec4(vPosition, 1.0);
+			vec4 nor4D = vec4(vNormal, 0.0);
+			
+			// compute lighting in eye coordinates
+			vec3 eyePoint = vec3(0.0, 0.0, 0.0);            // eye assumed at origin
+			vec3 pos = (modelViewMatrix * pos4D).xyz;       // lighting in eye coords
+			vec3 light = (modelViewMatrix * lightPosition).xyz;
+			
+			// compute various vectors
+			vec3 L = normalize( light - pos );      // vector to light
+			vec3 E = normalize( eyePoint - pos );   // vector to eye
+			vec3 H = normalize( L + E );            // halfway vector
+			vec3 N = normalize( (modelViewMatrix*nor4D).xyz);   // normal
+		
+			// Compute terms in the illumination equation
+			vec4 ambient = ambientProduct;
+		
+			float Kd = max( dot(L, N), 0.0 );
+			vec4 diffuse = Kd * diffuseProduct;
+			
+			float Ks = pow( max(dot(N, H), 0.0), shininess );
+			vec4 specular = Ks * specularProduct;
+			if(dot(N, H) < 0.0) {
+				specular = vec4(0.0, 0.0, 0.0, 1.0);
+			}
+			
+			fColor = ambient + diffuse + specular;
+			fColor.a = 1.0;
+			
+			gl_Position = projectionMatrix * modelViewMatrix * pos4D;
+		}
+	</script>
+
+	<!-- FRAGMENT SHADER -->
+	<script id="fragment-shader" type="x-shader/x-fragment">
+		precision mediump float;
+
+		varying vec4 fColor;
+		void main() {
+			gl_FragColor = fColor;
+		}
+	</script>
+
+	<!-- UTILS -->
+	<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+	<script type="text/javascript" src="../Common/initShaders.js"></script>
+	<script type="text/javascript" src="../Common/MV.js"></script>
+
+	<!-- MY SCRIPTS -->
+	<script type="text/javascript" src="geometry.js"></script>
+	<script type="text/javascript" src="lighting.js"></script>
+</head>
+
+<body class="bg-dark" style="color: white !important;">
+	<div class="container text-center">
+		<!-- header -->
+		<h2> Lighting Demo</h2>
+        <h4><b>Written by: </b> <a href="https://www.github.com/jtpeller">jtpeller</a></h4>
+		<hr>
+		<!-- Various information -->
+		<ul style="text-align:left">
+			<li>
+				<strong>Description: </strong> This program creates two surfaces
+				of revolution (SOR) that can be selected using the UI.
+				There are two materials: Turquoise and Jade.
+				There are two light colors: White light and purple light.
+				The light itself is specified in eye coordinates.<br>
+			</li>
+		</ul>
+		<hr>
+
+		<!-- the controls -->
+		<div class="row">
+			<div class='col my-panel' id="controls">
+				<div>
+					<h5>Modify Shape</h5><br>
+					<!-- toggle b/w shapes -->
+					<button class="btn btn-outline-primary" id="cyl-btn">Use Cylinder</button>
+					<button class="btn btn-outline-primary" id="custom-btn">Use Bell</button>
+					<hr>
+
+					<!-- toggle b/w materials -->
+					<h5>Modify Materials & Lighting</h5><br>
+					<button class="btn btn-outline-info" id="mat1-btn">Set turquoise material</button>
+					<button class="btn btn-outline-info" id="mat2-btn">Set jade material</button>
+					<br><br>
+					<!-- light input -->
+					<button class="btn btn-outline-warning" id="light1-btn">Set white light</button>
+					<button class="btn btn-outline-warning" id="light2-btn">Set purple light</button>
+					<button class="btn btn-outline-warning" id="light3-btn">Toggle light at eye</button>
+					<br><br>
+					<!-- shininess slider -->
+					<div>
+						Shininess:
+						<input class="form-range" id="shiny-slider" type="range" min="1" max="100" step="1" value="1" />
+						<div class="row">
+							<div class="col-1">1</div>
+							<div class="col-10"></div>
+							<div class="col-1">100</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div>
+					<h5>Modify Camera Properties</h5><br>
+					<!-- FOV slider -->
+					<div>
+						FOV:
+						<input class="form-range" id="fov-slider" type="range" min="10" max="100" step="1" value="10" />
+						<div class="row">
+							<div class="col-1">10</div>
+							<div class="col-10"></div>
+							<div class="col-1">100</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div>
+					<h5>Bonus Functionality</h5>
+					<!-- rotate light button -->
+					<button class="btn btn-outline-danger" id="rotate-btn">Rotate light</button>
+				</div>
+			</div>
+
+			<!-- the canvas -->
+			<div class="col">
+				<canvas class="my-canvas" id="gl-canvas" width="600" height="600" style="border:2px solid white;">
+					Your browser doesn't support the HTML5 canvas element
+				</canvas>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

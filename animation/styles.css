@@ -1,0 +1,29 @@
+/**
+ * CSS Styling file
+ * Author: Jeremy Pellerino
+ * Date: April 14, 2022
+ **/
+
+/* ELEMENTS */
+body {
+	background-color: rgb(39, 40, 46) !important;
+	color: white !important;
+}
+
+canvas {
+    border: 1px solid grey;
+}
+
+/* CLASSES */
+.wrapper {
+    width: 1400px;
+    height: 700px;
+    margin: auto;       /* center the div */
+}
+
+/* IDs */
+#controls {
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+}

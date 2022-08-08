@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>
+    <title>Explode</title>
+
+
+    <!-- Vertex Shader -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+
+    uniform float explodeFactor;
+
+    // incoming color attribute and varying for fragment shader
+    attribute vec3 vColor;
+    varying vec4 color;
+
+    void main() {
+        gl_Position.x = vPosition.x * explodeFactor;
+        gl_Position.y = vPosition.y * explodeFactor;
+        gl_Position.z = 0.0;
+        gl_Position.w = 1.0;
+        
+        // vary color based on explodeFactor
+        float colorFactor = 0.0;
+        if (explodeFactor > 0.5) {
+            colorFactor = explodeFactor - 0.5;
+        }
+        
+        // clip colors
+        float red = vColor.r + colorFactor;
+        if (red > 1.0) {
+            red = 1.0;
+        }
+        
+        float green = vColor.g + colorFactor;
+        if (green > 1.0) {
+            green = 1.0;
+        }
+        
+        float blue = vColor.b + colorFactor;
+        if (blue > 1.0) {
+            blue = 1.0;
+        }
+
+        // set for fragment shader
+        color = vec4(red, green, blue, 1.0);
+    }
+    </script>
+
+    <!-- Fragment Shader -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        // incoming color
+        varying vec4 color;
+
+        void main() {
+            // pass to fragment shader
+            gl_FragColor = color;
+        }
+    </script>
+
+    <!-- JS Utility codes and codes for this program -->
+    <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../Common/initShaders.js"></script>
+    <script type="text/javascript" src="../Common/MV.js"></script>
+    <script type="text/javascript" src="explode.js"></script>
+</head>
+
+<body>
+    <div style="font-family:verdana" class="container text-center">
+		<h3>Animation Demo</h3>
+        <h4><b>Written by: </b> <a href="https://www.github.com/jtpeller">jtpeller</a></h4>
+        <hr>
+        <ul class="list list-group" style="text-align:left">
+            <li class="list-group-item">
+                <strong>Description: </strong></br>A heptagram with 7 surrounding triangles.
+                These triangles move away and fade to white, while the heptagram remains unchanged.
+            </li>
+        </ul>
+        <hr>
+        <canvas id="gl-canvas" width="512" height="512" style="border:2px solid #000000;">
+            Your browser doesn't support the HTML5 canvas element
+        </canvas>
+    </div>
+</body>
+
+</html>
