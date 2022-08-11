@@ -119,9 +119,9 @@ window.onload = function init() {
     /* total colors: 8, 1 per part, and 1 for the core */
 
     // log vertices & colors
-    console.log("Input vertices and colors:");
-    console.log("vertices", vertices);
-    console.log("colors", colors);
+    //console.log("Input vertices and colors:");
+    //console.log("vertices", vertices);
+    //console.log("colors", colors);
 
     // webgl configs
     gl.viewport(0, 0, canvas.width, canvas.height); // set viewport
