@@ -3,12 +3,27 @@ body,
 html {
     font-family: Helvetica, Arial, sans-serif;
     color: white;
-    background-color: rgb(32, 32, 46);
+    background-color: rgb(24, 24, 27);
     height: 100% !important;
 }
 
 canvas {
     border: 1px solid grey;
+}
+
+h1 {
+    padding-top: 2rem;
+}
+
+a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+
+    transition: color 250ms ease-in-out;
+}
+
+a:hover {
+    color: rgb(0, 217, 255);
 }
 
 /* CLASSES */
@@ -20,9 +35,8 @@ canvas {
 }
 
 .list-group {
-    border-left: 1px solid rgb(128, 128, 128);
-    border-right: 1px solid rgb(128, 128, 128);
-    border-radius: 10px;
+    border-top: 1px solid rgb(128, 128, 128);
+    border-bottom: 1px solid rgb(128, 128, 128);
 }
 
 .list-group-item {
@@ -30,14 +44,6 @@ canvas {
     border-top: 1px solid rgb(128, 128, 128);
     border-bottom: 1px solid rgb(128, 128, 128);
     color: rgb(245, 245, 245);
-}
-
-.list-group-item > h3 > a {
-    color: rgb(0, 119, 255);
-}
-
-.list-group-item > h3 > a:hover {
-    color: rgb(61, 139, 255);
 }
 
 .my-panel {
