@@ -5,29 +5,29 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'
         integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>
-    <title>Explode</title>
+    <title>WebGL Demos | Simple Animation Demo</title>
 
 
     <!-- Vertex Shader -->
     <script id="vertex-shader" type="x-shader/x-vertex">
     attribute vec4 vPosition;
 
-    uniform float explodeFactor;
+    uniform float speedFactor;
 
     // incoming color attribute and varying for fragment shader
     attribute vec3 vColor;
     varying vec4 color;
 
     void main() {
-        gl_Position.x = vPosition.x * explodeFactor;
-        gl_Position.y = vPosition.y * explodeFactor;
+        gl_Position.x = vPosition.x * speedFactor;
+        gl_Position.y = vPosition.y * speedFactor;
         gl_Position.z = 0.0;
         gl_Position.w = 1.0;
         
-        // vary color based on explodeFactor
+        // vary color based on speedFactor
         float colorFactor = 0.0;
-        if (explodeFactor > 0.5) {
-            colorFactor = explodeFactor - 0.5;
+        if (speedFactor > 0.5) {
+            colorFactor = speedFactor - 0.5;
         }
         
         // clip colors
@@ -68,7 +68,7 @@
     <script type="text/javascript" src="../Common/webgl-utils.js"></script>
     <script type="text/javascript" src="../Common/initShaders.js"></script>
     <script type="text/javascript" src="../Common/MV.js"></script>
-    <script type="text/javascript" src="explode.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <link rel='stylesheet' href='../styles.css'>
 </head>
 

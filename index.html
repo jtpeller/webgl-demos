@@ -3,7 +3,7 @@
 <html lang="en-us" dark-bs-theme="dark">
 
 <head>
-    <title>WebGL demos</title>
+    <title>WebGL Demos | Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel='stylesheet' href='styles.css'>
@@ -16,40 +16,58 @@
             <hr>
         </div>
         <div id="main-content">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <h3><a href="simple-anim/simple.html">Simple Animation &#128279;</a></h3>
-                    <p>
-                        The simplest demo, this demonstrates the ability to manipulate 
-                        vertices and colors for WebGL, and set up the WebGL context 
-                        and rendering loop. Features 2D only.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <h3><a href="spinning-cubes/cube.html">Spinning Cubes &#128279;</a></h3>
-                    <p>
-                        In this demo, I setup 3D geometry and send it once to the GPU.
-                        A clickable canvas allows the user to create spinning cubes 
-                        on demand.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <h3><a href="lighting/lighting.html">Lighting &#128279;</a></h3>
-                    <p>
-                        This demo shows lighting basics, as well as creating
-                        surfaces of revolution in WebGL. An interactive canvas allows
-                        the user to see the lighting in different ways.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <h3><a href="animation/animation.html">Animation &#128279;</a></h3>
-                    <p>
-                        A figure is created using only cubes, and these cubes are then
-                        animated using external matrices/vectors. Demonstrates texturing 
-                        and animation.
-                    </p>
-                </li>
-            </ul>
+            <p class="fst-italic">Note: WebGL must be enabled on your browser. For security, it should be
+                disabled as there are many exploits possible. That being said, if you want to see some 
+                not-so-impressive WebGL demos live in the browser, feel free to enable it just for this 
+                session. For added security, I have included GIFs in this page to show what they look like. 
+                You could also sandbox your browser (e.g., open in a VM) or any other isolation techniques.
+            </p>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card card-dark">
+                        <img class="card-img-top mx-auto mb-3" src="resources/animation-1.gif"/>
+                        <h2 class="section-header"><a href="simple-anim/simple.html">Simple Animation &#128279;</a></h2>
+                        <p>
+                            The simplest demo, this demonstrates the ability to manipulate 
+                            vertices and colors for WebGL, and set up the WebGL context 
+                            and rendering loop. Features 2D only.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card card-dark">
+                        <img class="card-img-top mx-auto mb-3" src="resources/animation-2.gif"/>
+                        <h2 class="section-header"><a href="spinning-cubes/cube.html">Spinning Cubes &#128279;</a></h2>
+                        <p>
+                            In this demo, I setup 3D geometry and send it once to the GPU.
+                            A clickable canvas allows the user to create spinning cubes 
+                            on demand.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card card-dark">
+                        <img class="card-img-top mx-auto mb-3" src="resources/animation-3.gif"/>
+                        <h2 class="section-header"><a href="lighting/lighting.html">Lighting &#128279;</a></h2>
+                        <p>
+                            This demo shows lighting basics, as well as creating
+                            surfaces of revolution in WebGL. An interactive canvas allows
+                            the user to see the lighting in different ways.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card card-dark">
+                        <img class="card-img-top mx-auto mb-3" src="resources/animation-4.gif"/>
+                        <h2 class="section-header"><a href="animation/animation.html">Animation and Textures &#128279;</a></h2>
+                        <p>
+                            A figure is created using only cubes, and these cubes are then
+                            animated using external matrices/vectors. Demonstrates texturing 
+                            and animation.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

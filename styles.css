@@ -29,9 +29,16 @@ a:hover {
 /* CLASSES */
 .banner {
     text-align: center;
-    padding-top: 10vh;
+    padding-top: 2vh;
     padding-bottom: 1vh;
-    font-size: 1vi;
+}
+
+.card {
+    background-color: var(--bg-color);
+    color: white;
+    margin: 10px 0px;
+    padding: 10px;
+    box-shadow: 0px 0px 8px grey;
 }
 
 .list-group {
@@ -57,6 +64,13 @@ a:hover {
     margin: 20px;
 }
 
+.section-header {
+    width: 100%;
+	padding-top: 1rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1.5px solid grey;
+}
+
 .wrapper {
     width: 1400px;
     height: 700px;
@@ -69,7 +83,6 @@ a:hover {
     border-radius: 10px;
     padding: 10px;
 }
-
 
 #main-content {
     min-height: calc(100vh - 18.25rem);
